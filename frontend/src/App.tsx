@@ -1,15 +1,46 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from 'react-hot-toast';
-import { Code2, Sparkles, Moon, Sun, Github } from 'lucide-react';
+import { Code2, Sparkles, Moon, Sun, Github, HelpCircle } from 'lucide-react';
 import { CodeEditor } from './components/CodeEditor';
 import { FileTree } from './components/FileTree';
 import { CompileButton, OutputPanel } from './components/CompilePanel';
 import { TemplateGallery } from './components/TemplateGallery';
+import { HelpModal } from './components/HelpModal';
+import { useEditorStore } from './store/editorStore';
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [showTemplates, setShowTemplates] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
+  const { currentFile } = useEditorStore();
+
+  // Keyboard shortcuts
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Ctrl+S - Compile
+      if (e.ctrlKey && e.key === 's') {
+        e.preventDefault();
+        document.querySelector<HTMLButtonElement>('button[data-compile]')?.click();
+      }
+      // Ctrl+T - Templates
+      if (e.ctrlKey && e.key === 't') {
+        e.preventDefault();
+        setShowTemplates(true);
+      }
+      // ? - Help
+      if (e.key === '?' && !e.ctrlKey && !e.altKey) {
+        const target = e.target as HTMLElement;
+        if (target.tagName !== 'INPUT' && target.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+          setShowHelp(true);
+        }
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <div className={`h-screen flex flex-col ${darkMode ? 'dark' : ''}`}>
@@ -37,6 +68,14 @@ function App() {
             Templates
           </button>
           
+          <button
+            onClick={() => setShowHelp(true)}
+            className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+            title="Keyboard shortcuts"
+          >
+            <HelpCircle className="w-5 h-5" />
+          </button>
+
           <a
             href="https://github.com/yourusername/cashlang"
             target="_blank"
@@ -67,10 +106,12 @@ function App() {
           {/* Toolbar */}
           <div className="h-14 bg-gray-100 border-b border-gray-200 flex items-center justify-between px-6">
             <div className="flex items-center gap-4">
-              <span className="text-sm font-medium text-gray-700">main.cash</span>
+              <span className="text-sm font-medium text-gray-700">{currentFile}</span>
               <span className="text-xs text-gray-500">CashLang v0.1.0</span>
             </div>
-            <CompileButton />
+            <div data-compile>
+              <CompileButton />
+            </div>
           </div>
 
           {/* Editor + Output Split */}
@@ -115,6 +156,9 @@ function App() {
         </div>
       )}
 
+      {/* Help Modal */}
+      <HelpModal isOpen={showHelp} onClose={() => setShowHelp(false)} />
+
       {/* Footer */}
       <footer className="h-8 bg-gray-900 text-gray-400 text-xs flex items-center justify-between px-6">
         <div className="flex items-center gap-4">
@@ -123,8 +167,10 @@ function App() {
           <span>Built with ❤️ for Bitcoin Cash</span>
         </div>
         <div className="flex items-center gap-4">
+          <button onClick={() => setShowHelp(true)} className="hover:text-white transition-colors">
+            Press ? for shortcuts
+          </button>
           <a href="#" className="hover:text-white transition-colors">Docs</a>
-          <a href="#" className="hover:text-white transition-colors">Examples</a>
           <a href="#" className="hover:text-white transition-colors">Discord</a>
         </div>
       </footer>

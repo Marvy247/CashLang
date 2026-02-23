@@ -6,6 +6,7 @@ export interface CompileResult {
   errors?: CompileError[];
   bytecode?: string;
   bytecodeSize?: number;
+  simulation?: SimulationResult;
 }
 
 export interface CompileError {

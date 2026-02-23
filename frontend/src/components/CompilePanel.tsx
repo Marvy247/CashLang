@@ -1,6 +1,6 @@
-import { Play, Loader2, CheckCircle2, XCircle } from 'lucide-react';
+import { Play, Loader2, CheckCircle2, XCircle, Zap } from 'lucide-react';
 import { useEditorStore } from '../store/editorStore';
-import { transpile } from '@cashlang/core';
+import { transpile, simulate } from '@cashlang/core';
 import toast from 'react-hot-toast';
 
 export function CompileButton() {
@@ -14,6 +14,12 @@ export function CompileButton() {
     
     const source = files[currentFile];
     const result = transpile(source);
+    
+    // Run simulation if compilation successful
+    if (result.success && result.cashscript) {
+      const simResult = simulate(result.cashscript);
+      result.simulation = simResult;
+    }
     
     setCompileResult(result);
     setIsCompiling(false);
@@ -83,6 +89,36 @@ export function OutputPanel() {
               Line {err.line}:{err.column} - {err.message}
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Simulation Results */}
+      {compileResult.success && compileResult.simulation && (
+        <div className={`border rounded-lg p-4 ${
+          compileResult.simulation.success 
+            ? 'bg-green-50 border-green-200' 
+            : 'bg-red-50 border-red-200'
+        }`}>
+          <div className="flex items-center gap-2 mb-2">
+            <Zap className={`w-4 h-4 ${compileResult.simulation.success ? 'text-green-600' : 'text-red-600'}`} />
+            <h3 className={`font-semibold ${compileResult.simulation.success ? 'text-green-800' : 'text-red-800'}`}>
+              Simulation {compileResult.simulation.success ? 'Passed' : 'Failed'}
+            </h3>
+          </div>
+          
+          {compileResult.simulation.logs && (
+            <div className="space-y-1 text-sm">
+              {compileResult.simulation.logs.map((log, i) => (
+                <div key={i} className="text-gray-700 font-mono">{log}</div>
+              ))}
+            </div>
+          )}
+          
+          {compileResult.simulation.gasUsed && (
+            <div className="mt-2 text-sm text-gray-600">
+              Gas used: <span className="font-mono font-semibold">{compileResult.simulation.gasUsed}</span>
+            </div>
+          )}
         </div>
       )}
 
