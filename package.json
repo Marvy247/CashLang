@@ -10,8 +10,10 @@
   "scripts": {
     "dev": "npm run dev --workspace=frontend",
     "build": "npm run build --workspaces --if-present",
-    "build:core": "npm run build --workspace=packages/core",
-    "build:frontend": "npm run build --workspace=frontend"
+    "build:core": "npm run build --workspace=packages/shared && npm run build --workspace=packages/core",
+    "build:frontend": "npm run build --workspace=frontend",
+    "clean": "rm -rf node_modules frontend/node_modules packages/*/node_modules packages/*/dist frontend/dist",
+    "deploy": "npm run build:core && npm run build:frontend"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
