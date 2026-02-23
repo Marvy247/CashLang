@@ -1,176 +1,134 @@
-import { BrowserRouter, Link, Route, Routes, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from 'react-hot-toast';
-
-const navLinks = [
-  { path: '/dashboard', label: 'Dashboard', icon: '📊' },
-  { path: '/about', label: 'About', icon: '📖' },
-];
-
-function Navigation() {
-  const location = useLocation();
-
-  return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[95%] max-w-7xl">
-      <div className="glass rounded-2xl px-6 py-4 border border-app-border shadow-floating flex items-center justify-between">
-        <Link to="/" className="flex items-center group">
-          <span className="font-serif font-bold text-2xl tracking-tighter text-text-main group-hover:text-accent-indigo transition-colors duration-300">
-            Your<span className="italic">Brand</span>
-          </span>
-        </Link>
-
-        <div className="flex items-center gap-2">
-          {navLinks.map((link) => {
-            const isActive = location.pathname === link.path;
-            return (
-              <Link
-                key={link.path}
-                to={link.path}
-                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  isActive
-                    ? 'bg-accent-indigo text-white shadow-premium'
-                    : 'text-text-dim hover:text-accent-indigo hover:bg-app-hover'
-                }`}
-              >
-                {link.icon} {link.label}
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    </nav>
-  );
-}
-
-function AnimatedRoutes() {
-  const location = useLocation();
-
-  return (
-    <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/dashboard" element={<PageWrapper><Dashboard /></PageWrapper>} />
-        <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
-      </Routes>
-    </AnimatePresence>
-  );
-}
-
-function PageWrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 15 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -15 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-      className="pt-44 pb-24 px-6 min-h-screen"
-    >
-      <div className="max-w-7xl mx-auto">
-        {children}
-      </div>
-    </motion.div>
-  );
-}
-
-function LandingPage() {
-  return (
-    <div className="pt-32 pb-24 px-6">
-      <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-20"
-        >
-          <h1 className="font-serif font-bold text-6xl md:text-7xl tracking-tighter text-text-main mb-6">
-            Welcome to Your
-            <br />
-            <span className="italic text-accent-indigo">New Project</span>
-          </h1>
-          <p className="text-xl text-text-dim max-w-2xl mx-auto mb-10">
-            A modern React template with Tailwind CSS, Framer Motion, and React Router.
-          </p>
-          <Link
-            to="/dashboard"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-accent-indigo text-white rounded-xl font-medium hover:shadow-premium transition-all"
-          >
-            Get Started →
-          </Link>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            { icon: '⚡', title: 'Fast', desc: 'Built with Vite for lightning-fast development' },
-            { icon: '🎨', title: 'Beautiful', desc: 'Tailwind CSS with custom design system' },
-            { icon: '✨', title: 'Animated', desc: 'Smooth animations with Framer Motion' }
-          ].map((feature, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="glass rounded-2xl p-8 border border-app-border"
-            >
-              <div className="text-4xl mb-4">{feature.icon}</div>
-              <h3 className="font-bold text-xl mb-2">{feature.title}</h3>
-              <p className="text-text-dim">{feature.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Dashboard() {
-  return (
-    <div className="glass rounded-2xl p-8 border border-app-border">
-      <h2 className="font-serif font-bold text-3xl mb-4">Dashboard</h2>
-      <p className="text-text-dim">Build your dashboard here.</p>
-    </div>
-  );
-}
-
-function About() {
-  return (
-    <div className="glass rounded-2xl p-8 border border-app-border">
-      <h2 className="font-serif font-bold text-3xl mb-4">About</h2>
-      <p className="text-text-dim">Add your about content here.</p>
-    </div>
-  );
-}
+import { Code2, Sparkles, Moon, Sun, Github } from 'lucide-react';
+import { CodeEditor } from './components/CodeEditor';
+import { FileTree } from './components/FileTree';
+import { CompileButton, OutputPanel } from './components/CompilePanel';
+import { TemplateGallery } from './components/TemplateGallery';
 
 function App() {
+  const [darkMode, setDarkMode] = useState(true);
+  const [showTemplates, setShowTemplates] = useState(false);
+
   return (
-    <BrowserRouter>
+    <div className={`h-screen flex flex-col ${darkMode ? 'dark' : ''}`}>
       <Analytics />
       <Toaster position="top-right" />
-      <div className="min-h-screen bg-app-bg grid-subtle selection:bg-accent-indigo/10 selection:text-accent-indigo">
-        <Navigation />
-        <main className="relative">
-          <AnimatedRoutes />
-        </main>
 
-        <footer className="border-t border-app-border py-16 px-6 bg-white">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
-            <div className="flex flex-col items-center md:items-start gap-5">
-              <span className="font-serif font-bold text-2xl tracking-tighter text-text-main">
-                Your<span className="italic">Brand</span>
-              </span>
-              <p className="text-sm text-text-pale max-w-xs text-center md:text-left leading-relaxed">
-                Your tagline or description here
-              </p>
+      {/* Header */}
+      <header className="h-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white flex items-center justify-between px-6 shadow-lg">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-white/20 rounded-lg backdrop-blur">
+            <Code2 className="w-6 h-6" />
+          </div>
+          <div>
+            <h1 className="text-xl font-bold tracking-tight">CashLang</h1>
+            <p className="text-xs text-blue-100">Bitcoin Cash Smart Contract IDE</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <button
+            onClick={() => setShowTemplates(!showTemplates)}
+            className="flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors backdrop-blur"
+          >
+            <Sparkles className="w-4 h-4" />
+            Templates
+          </button>
+          
+          <a
+            href="https://github.com/yourusername/cashlang"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+          >
+            <Github className="w-5 h-5" />
+          </a>
+
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+          >
+            {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          </button>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Sidebar */}
+        <div className="w-64 flex-shrink-0">
+          <FileTree />
+        </div>
+
+        {/* Editor Area */}
+        <div className="flex-1 flex flex-col">
+          {/* Toolbar */}
+          <div className="h-14 bg-gray-100 border-b border-gray-200 flex items-center justify-between px-6">
+            <div className="flex items-center gap-4">
+              <span className="text-sm font-medium text-gray-700">main.cash</span>
+              <span className="text-xs text-gray-500">CashLang v0.1.0</span>
+            </div>
+            <CompileButton />
+          </div>
+
+          {/* Editor + Output Split */}
+          <div className="flex-1 flex overflow-hidden">
+            {/* Code Editor */}
+            <div className="flex-1">
+              <CodeEditor />
             </div>
 
-            <div className="flex flex-col items-center md:items-end gap-4">
-              <p className="text-xs text-text-pale uppercase tracking-widest font-medium">
-                © 2026 YOUR BRAND
-              </p>
+            {/* Output Panel */}
+            <div className="w-96 border-l border-gray-200 bg-white overflow-hidden">
+              <div className="h-full flex flex-col">
+                <div className="h-12 bg-gray-50 border-b border-gray-200 flex items-center px-4">
+                  <h3 className="font-semibold text-gray-700">Output</h3>
+                </div>
+                <div className="flex-1 overflow-auto">
+                  <OutputPanel />
+                </div>
+              </div>
             </div>
           </div>
-        </footer>
+        </div>
       </div>
-    </BrowserRouter>
+
+      {/* Template Gallery Modal */}
+      {showTemplates && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-6">
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[80vh] overflow-hidden">
+            <div className="h-14 bg-gradient-to-r from-blue-600 to-purple-600 text-white flex items-center justify-between px-6">
+              <h2 className="font-bold text-lg">Template Gallery</h2>
+              <button
+                onClick={() => setShowTemplates(false)}
+                className="text-2xl hover:bg-white/20 w-8 h-8 rounded-lg transition-colors"
+              >
+                ×
+              </button>
+            </div>
+            <div className="overflow-auto max-h-[calc(80vh-3.5rem)]">
+              <TemplateGallery />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Footer */}
+      <footer className="h-8 bg-gray-900 text-gray-400 text-xs flex items-center justify-between px-6">
+        <div className="flex items-center gap-4">
+          <span>BCH-1 Hackcelerator 2026</span>
+          <span>•</span>
+          <span>Built with ❤️ for Bitcoin Cash</span>
+        </div>
+        <div className="flex items-center gap-4">
+          <a href="#" className="hover:text-white transition-colors">Docs</a>
+          <a href="#" className="hover:text-white transition-colors">Examples</a>
+          <a href="#" className="hover:text-white transition-colors">Discord</a>
+        </div>
+      </footer>
+    </div>
   );
 }
 

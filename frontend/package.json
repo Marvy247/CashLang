@@ -7,15 +7,21 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@cashlang/core": "*",
+    "@cashlang/shared": "*",
+    "@monaco-editor/react": "^4.6.0",
     "@vercel/analytics": "^1.6.1",
     "framer-motion": "^12.26.2",
+    "lucide-react": "^0.460.0",
+    "monaco-editor": "^0.52.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.6.0",
-    "react-router-dom": "^7.9.1"
+    "zustand": "^5.0.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

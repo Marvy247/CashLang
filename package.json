@@ -1,0 +1,19 @@
+{
+  "name": "cashlang",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "packages/*",
+    "cli"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=frontend",
+    "build": "npm run build --workspaces --if-present",
+    "build:core": "npm run build --workspace=packages/core",
+    "build:frontend": "npm run build --workspace=frontend"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}
