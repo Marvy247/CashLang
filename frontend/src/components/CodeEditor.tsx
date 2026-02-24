@@ -18,6 +18,14 @@ export function CodeEditor({ darkMode }: CodeEditorProps) {
         theme={darkMode ? 'vs-dark' : 'light'}
         value={content}
         onChange={(value: string | undefined) => updateFile(currentFile, value || '')}
+        loading={
+          <div className={`h-full w-full flex items-center justify-center ${darkMode ? 'bg-[#1e1e1e] text-gray-400' : 'bg-white text-gray-600'}`}>
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-4"></div>
+              <div>Loading editor...</div>
+            </div>
+          </div>
+        }
         options={{
           minimap: { enabled: true },
           fontSize: 14,
