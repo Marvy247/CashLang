@@ -120,7 +120,7 @@ function App() {
       <div className="flex-1 flex overflow-hidden">
         {/* Sidebar */}
         <div className="w-64 flex-shrink-0">
-          <FileTree />
+          <FileTree darkMode={darkMode} />
         </div>
 
         {/* Editor Area */}
