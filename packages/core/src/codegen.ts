@@ -1,4 +1,4 @@
-import type { ContractNode, FunctionNode, StatementNode, ExpressionNode, RequireStatement, BinaryExpression, Identifier, Literal, MemberExpression, CallExpression } from './parser.js';
+import type { ContractNode, FunctionNode, StatementNode, ExpressionNode, RequireStatement, AssignmentStatement, BinaryExpression, Identifier, Literal, MemberExpression, CallExpression } from './parser.js';
 import type { ContractArtifact } from '@cashlang/shared';
 
 // Code generator: AST -> CashScript
@@ -62,6 +62,11 @@ function generateStatement(stmt: StatementNode, indent: number): string {
   if (stmt.type === 'RequireStatement') {
     const req = stmt as RequireStatement;
     return `${spaces}require(${generateExpression(req.condition)});\n`;
+  }
+
+  if (stmt.type === 'AssignmentStatement') {
+    const assign = stmt as AssignmentStatement;
+    return `${spaces}${assign.varType} ${assign.varName} = ${generateExpression(assign.value)};\n`;
   }
 
   return '';

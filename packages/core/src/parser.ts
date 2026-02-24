@@ -35,6 +35,13 @@ export interface RequireStatement extends StatementNode {
   condition: ExpressionNode;
 }
 
+export interface AssignmentStatement extends StatementNode {
+  type: 'AssignmentStatement';
+  varType: string;
+  varName: string;
+  value: ExpressionNode;
+}
+
 export interface ExpressionNode extends ASTNode {
   type: 'BinaryExpression' | 'Identifier' | 'Literal' | 'CallExpression' | 'MemberExpression';
 }
@@ -173,6 +180,7 @@ export function parse(source: string): { ast: ContractNode | null; errors: Compi
     const token = peek();
     if (!token) return null;
 
+    // require statement
     if (token.type === 'KEYWORD' && token.value === 'require') {
       advance();
       expect('LPAREN');
@@ -183,6 +191,28 @@ export function parse(source: string): { ast: ContractNode | null; errors: Compi
         type: 'RequireStatement',
         condition: condition!
       } as RequireStatement;
+    }
+
+    // Variable declaration: int x = ...
+    if (token.type === 'IDENTIFIER') {
+      const typeToken = advance();
+      const nameToken = peek();
+      
+      if (nameToken && nameToken.type === 'IDENTIFIER') {
+        const varName = advance();
+        
+        if (peek()?.type === 'EQ') {
+          advance(); // consume =
+          const value = parseExpression();
+          expect('SEMICOLON');
+          return {
+            type: 'AssignmentStatement',
+            varType: typeToken.value,
+            varName: varName.value,
+            value: value!
+          } as AssignmentStatement;
+        }
+      }
     }
 
     // Skip unknown statements
