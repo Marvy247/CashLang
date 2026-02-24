@@ -6,7 +6,7 @@ export function CodeEditor() {
   const content = files[currentFile] || '';
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full relative">
       <Editor
         height="100%"
         defaultLanguage="javascript"
@@ -15,7 +15,7 @@ export function CodeEditor() {
         value={content}
         onChange={(value: string | undefined) => updateFile(currentFile, value || '')}
         options={{
-          minimap: { enabled: false },
+          minimap: { enabled: true },
           fontSize: 14,
           lineNumbers: 'on',
           roundedSelection: true,
@@ -23,7 +23,17 @@ export function CodeEditor() {
           automaticLayout: true,
           tabSize: 2,
           wordWrap: 'on',
-          padding: { top: 16, bottom: 16 }
+          padding: { top: 16, bottom: 16 },
+          folding: true,
+          lineDecorationsWidth: 10,
+          lineNumbersMinChars: 3,
+          renderLineHighlight: 'all',
+          cursorBlinking: 'smooth',
+          cursorSmoothCaretAnimation: 'on',
+          smoothScrolling: true,
+          contextmenu: true,
+          quickSuggestions: true,
+          suggestOnTriggerCharacters: true,
         }}
       />
     </div>

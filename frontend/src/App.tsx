@@ -8,6 +8,7 @@ import { CompileButton, OutputPanel } from './components/CompilePanel';
 import { TemplateGallery } from './components/TemplateGallery';
 import { HelpModal } from './components/HelpModal';
 import { LandingPage } from './components/LandingPage';
+import { StatusBar } from './components/StatusBar';
 import { useEditorStore } from './store/editorStore';
 
 function App() {
@@ -185,21 +186,8 @@ function App() {
       {/* Help Modal */}
       <HelpModal isOpen={showHelp} onClose={() => setShowHelp(false)} />
 
-      {/* Footer */}
-      <footer className="h-8 bg-gray-900 text-gray-400 text-xs flex items-center justify-between px-6">
-        <div className="flex items-center gap-4">
-          <span>BCH-1 Hackcelerator 2026</span>
-          <span>•</span>
-          <span>Built with ❤️ for Bitcoin Cash</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <button onClick={() => setShowHelp(true)} className="hover:text-white transition-colors">
-            Press ? for shortcuts
-          </button>
-          <a href="#" className="hover:text-white transition-colors">Docs</a>
-          <a href="#" className="hover:text-white transition-colors">Discord</a>
-        </div>
-      </footer>
+      {/* Status Bar */}
+      <StatusBar />
     </div>
   );
 }
