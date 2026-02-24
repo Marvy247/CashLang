@@ -1,42 +1,40 @@
-# 🚀 CashLang
+# CashLang
 
 **The Modern Smart Contract Framework for Bitcoin Cash**
 
-> Winner submission for BCH-1 Hackcelerator Technology Track 🏆
+> Technology Track Submission for BCH-1 Hackcelerator 2026
 
 CashLang is a revolutionary development framework that brings Solidity-like developer experience to Bitcoin Cash. Write smart contracts in clean, intuitive syntax and compile to optimized CashScript — all in a beautiful web IDE.
 
-![CashLang IDE](https://via.placeholder.com/1200x600/4F46E5/FFFFFF?text=CashLang+IDE+Screenshot)
-
-## 🎯 Why CashLang?
+## Overview
 
 **The Problem:** Bitcoin Cash has incredible potential with CashTokens, but the developer experience is rough. CashScript is low-level, tooling is fragmented, and onboarding new builders is painful.
 
 **The Solution:** CashLang bridges the gap between high-level developer ergonomics and BCH's powerful primitives. Think Remix IDE meets Hardhat, but native to Bitcoin Cash.
 
-## ✨ Features
+## Features
 
-### 🎨 Beautiful Web IDE
+### Beautiful Web IDE
 - **Monaco Editor** - VSCode-quality editing experience
 - **Real-time Compilation** - Instant feedback as you code
 - **Syntax Highlighting** - Custom CashLang language support
 - **Dark/Light Mode** - Easy on the eyes, day or night
 - **Tabbed Interface** - Output and Security analysis side-by-side
 
-### 🔧 Powerful Transpiler
+### Powerful Transpiler
 - **High-Level Syntax** - Write contracts like Solidity/TypeScript
 - **CashScript Output** - Generates clean, optimized .cash files
 - **Contract Artifacts** - JSON ABIs ready for deployment
 - **Error Diagnostics** - Helpful error messages with line numbers
 - **CashTokens Syntax Sugar** - `token.category`, `token.nft.commitment` helpers
 
-### 🛡️ Security Analyzer (NEW!)
+### Security Analyzer
 - **Real-time Security Scoring** - Get a grade (A-F) for your contract
 - **8 Security Checks** - Signature verification, time locks, token preservation, overflow protection
 - **Actionable Suggestions** - Fix issues with clear recommendations
 - **Visual Issue Display** - Color-coded by severity (Critical/Warning/Info)
 
-### 🎭 Template Gallery
+### Template Gallery
 5 production-ready templates showcasing CashTokens:
 - **Token Vault** - Time-locked token storage
 - **NFT Minting** - Create unique NFTs with metadata
@@ -44,21 +42,21 @@ CashLang is a revolutionary development framework that brings Solidity-like deve
 - **DEX Atomic Swap** - Trustless token exchange
 - **Token Vesting** - Linear vesting schedules
 
-### 🔐 Covenant Patterns Library (NEW!)
+### Covenant Patterns Library
 - **4 Battle-tested Patterns** - Token preservation, NFT transfer, minting, splitting
 - **One-click Insert** - Add patterns directly to your code
 - **Copy to Clipboard** - Easy sharing and reuse
 - **Comprehensive Docs** - Each pattern fully explained
 
-### 🧪 Built-in Simulation
+### Built-in Simulation
 - Test contracts locally before deployment
 - Visualize transaction flows
 - Debug with stack traces
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Try it Live
-👉 **[cashlang.vercel.app](https://cashlang.vercel.app)** (Demo deployed!)
+**[cashlang.vercel.app](https://cashlang.vercel.app)** (Demo deployed!)
 
 ### Run Locally
 
@@ -76,7 +74,7 @@ npm run dev
 
 Open [http://localhost:5173](http://localhost:5173) and start building!
 
-## 📖 Usage
+## Usage
 
 ### 1. Write Your Contract
 
@@ -123,7 +121,7 @@ const contract = new Contract(artifact, [ownerPubkey, unlockTime]);
 console.log('Contract address:', contract.address);
 ```
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 cashlang/
@@ -139,6 +137,8 @@ cashlang/
 │   │   ├── parser.ts     # Recursive descent parser
 │   │   ├── codegen.ts    # CashScript code generator
 │   │   ├── transpiler.ts # Main transpile function
+│   │   ├── security.ts   # Security analyzer
+│   │   ├── cashtokens.ts # CashTokens syntax sugar
 │   │   └── templates.ts  # Built-in templates
 │   │
 │   └── shared/           # Shared types
@@ -154,7 +154,7 @@ cashlang/
 - **Transpiler:** Custom recursive descent parser → AST → CashScript codegen
 - **Deployment:** Vercel (one-click deploy)
 
-## 🎓 How It Works
+## How It Works
 
 1. **Parse** - Tokenize CashLang source → Build AST
 2. **Validate** - Type checking, semantic analysis
@@ -162,11 +162,11 @@ cashlang/
 4. **Simulate** - Run contract logic in BCH VM simulator
 5. **Deploy** - Export ready-to-use deployment scripts
 
-## 🌟 What Makes CashLang Special
+## What Makes CashLang Special
 
 ### For Developers
 - **Familiar Syntax** - If you know Solidity or TypeScript, you know CashLang
-- **Instant Feedback** - Compile in <500ms, see errors immediately
+- **Instant Feedback** - Compile in 2-5 seconds, see errors immediately
 - **Zero Setup** - No CLI installation, works in browser
 - **Learn by Example** - 5 templates covering all major use cases
 
@@ -176,44 +176,44 @@ cashlang/
 - **Production Ready** - Not a toy, generates real deployable contracts
 - **Open Source** - MIT licensed, community-driven
 
-## 🗺️ Roadmap
+## Roadmap
 
 ### v0.1 (Current - Hackathon MVP)
-- ✅ Core transpiler (CashLang → CashScript)
-- ✅ Web IDE with Monaco Editor
-- ✅ 5 CashTokens templates
-- ✅ Contract security analyzer
-- ✅ Covenant patterns library
-- ✅ CashTokens syntax sugar
-- ✅ Basic error diagnostics
-- ✅ Contract artifact generation
+- Core transpiler (CashLang → CashScript)
+- Web IDE with Monaco Editor
+- 5 CashTokens templates
+- Contract security analyzer
+- Covenant patterns library
+- CashTokens syntax sugar
+- Basic error diagnostics
+- Contract artifact generation
 
 ### v0.2 (Post-Hackathon)
-- [ ] Full CashScript feature parity
-- [ ] Advanced type system (generics, interfaces)
-- [ ] Integrated BCH VM simulator (libauth)
-- [ ] One-click deployment to mainnet/testnet
-- [ ] VS Code extension
-- [ ] CLI tool (`npx cashlang compile contract.cash`)
+- Full CashScript feature parity
+- Advanced type system (generics, interfaces)
+- Integrated BCH VM simulator (libauth)
+- One-click deployment to mainnet/testnet
+- VS Code extension
+- CLI tool (`npx cashlang compile contract.cash`)
 
 ### v0.3 (Future)
-- [ ] Package manager (import contracts from npm)
-- [ ] Formal verification tools
-- [ ] Gas optimization analyzer
-- [ ] Multi-file projects
-- [ ] Collaborative editing (multiplayer IDE)
-- [ ] AI-powered contract generation
+- Package manager (import contracts from npm)
+- Formal verification tools
+- Gas optimization analyzer
+- Multi-file projects
+- Collaborative editing (multiplayer IDE)
+- AI-powered contract generation
 
 ### v1.0 (Vision)
-- [ ] Full CashTokens SDK integration
-- [ ] Visual contract builder (drag-and-drop)
-- [ ] Contract marketplace
-- [ ] Security audit tools
-- [ ] DAO governance for language evolution
+- Full CashTokens SDK integration
+- Visual contract builder (drag-and-drop)
+- Contract marketplace
+- Security audit tools
+- DAO governance for language evolution
 
-## 🎥 Demo Video Script
+## Demo Video Script
 
-**[30-second version for social media]**
+**30-second version for social media**
 
 1. **0-5s:** "Building on Bitcoin Cash is hard. Until now."
 2. **5-10s:** Show CashLang IDE loading, click "Templates"
@@ -222,7 +222,7 @@ cashlang/
 5. **20-25s:** Show generated CashScript + artifact
 6. **25-30s:** "CashLang. Smart contracts, made simple. Try it now."
 
-## 🤝 Contributing
+## Contributing
 
 We're building the future of BCH development! Contributions welcome:
 
@@ -232,18 +232,18 @@ We're building the future of BCH development! Contributions welcome:
 4. Push to the branch (`git push origin feature/amazing`)
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 MIT License - see [LICENSE](LICENSE) for details
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **CashScript Team** - For the amazing foundation
 - **Bitcoin Cash Community** - For the vision
 - **BCH-1 Hackcelerator** - For the opportunity
 - **All Contributors** - You make this possible
 
-## 🔗 Links
+## Links
 
 - **Live Demo:** [cashlang.vercel.app](https://cashlang.vercel.app)
 - **GitHub:** [github.com/yourusername/cashlang](https://github.com/yourusername/cashlang)
@@ -253,6 +253,6 @@ MIT License - see [LICENSE](LICENSE) for details
 
 ---
 
-**Built with ❤️ for Bitcoin Cash** | BCH-1 Hackcelerator 2026
+**Built for Bitcoin Cash** | BCH-1 Hackcelerator 2026
 
 *"Making Bitcoin Cash development as easy as writing TypeScript"*
