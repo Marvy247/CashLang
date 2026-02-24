@@ -134,14 +134,17 @@ export function parse(source: string): { ast: ContractNode | null; errors: Compi
   function parseParameterList(): ParameterNode[] {
     const params: ParameterNode[] = [];
     while (peek() && peek()!.type !== 'RPAREN') {
-      const typeToken = expect('IDENTIFIER');
-      const nameToken = expect('IDENTIFIER');
-      if (typeToken && nameToken) {
-        params.push({
-          type: 'Parameter',
-          name: nameToken.value,
-          paramType: typeToken.value
-        });
+      const typeToken = peek();
+      if (typeToken && (typeToken.type === 'TYPE' || typeToken.type === 'IDENTIFIER')) {
+        advance();
+        const nameToken = expect('IDENTIFIER');
+        if (typeToken && nameToken) {
+          params.push({
+            type: 'Parameter',
+            name: nameToken.value,
+            paramType: typeToken.value
+          });
+        }
       }
       if (peek()?.type === 'COMMA') advance();
     }
@@ -194,7 +197,7 @@ export function parse(source: string): { ast: ContractNode | null; errors: Compi
     }
 
     // Variable declaration: int x = ...
-    if (token.type === 'IDENTIFIER') {
+    if (token.type === 'TYPE' || (token.type === 'IDENTIFIER' && peek() && peek()!.type === 'IDENTIFIER')) {
       const typeToken = advance();
       const nameToken = peek();
       
@@ -331,6 +334,7 @@ function tokenize(source: string): Token[] {
   let i = 0;
 
   const keywords = ['contract', 'function', 'require', 'if', 'else', 'return', 'true', 'false'];
+  const types = ['int', 'bool', 'string', 'bytes', 'pubkey', 'sig', 'datasig', 'bytes32', 'bytes20', 'bytes8', 'bytes4'];
 
   while (i < source.length) {
     const char = source[i];
@@ -383,8 +387,9 @@ function tokenize(source: string): Token[] {
         i++;
         column++;
       }
+      const tokenType = keywords.includes(value) ? 'KEYWORD' : types.includes(value) ? 'TYPE' : 'IDENTIFIER';
       tokens.push({
-        type: keywords.includes(value) ? 'KEYWORD' : 'IDENTIFIER',
+        type: tokenType,
         value,
         line,
         column: startCol
