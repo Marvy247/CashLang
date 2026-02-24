@@ -53,11 +53,11 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm rounded-full border border-gray-200 shadow-sm mb-8"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full shadow-lg mb-8"
             >
-              <Sparkles className="w-4 h-4 text-yellow-500" />
-              <span className="text-sm font-medium text-gray-700">
-                Winner - BCH-1 Hackcelerator 2026
+              <Sparkles className="w-4 h-4 text-white" />
+              <span className="text-sm font-bold text-white">
+                🏆 Built for BCH-1 Hackcelerator 2026
               </span>
             </motion.div>
 
@@ -211,6 +211,60 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
             <Play className="w-5 h-5" />
             Try it now
           </button>
+        </motion.div>
+      </div>
+
+      {/* Comparison Table */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6 py-24">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-12"
+        >
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            Why CashLang?
+          </h2>
+          <p className="text-xl text-gray-600">
+            The best developer experience for Bitcoin Cash
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200"
+        >
+          <table className="w-full">
+            <thead className="bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+              <tr>
+                <th className="px-6 py-4 text-left font-semibold">Feature</th>
+                <th className="px-6 py-4 text-center font-semibold">CashScript</th>
+                <th className="px-6 py-4 text-center font-semibold">Solidity</th>
+                <th className="px-6 py-4 text-center font-semibold bg-white/20">CashLang</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+              {[
+                { feature: 'High-level syntax', cashscript: '✓', solidity: '✓', cashlang: '✓' },
+                { feature: 'Web-based IDE', cashscript: '✗', solidity: '✓', cashlang: '✓' },
+                { feature: 'Real-time compilation', cashscript: '✗', solidity: '✓', cashlang: '✓' },
+                { feature: 'Security analyzer', cashscript: '✗', solidity: '✗', cashlang: '✓' },
+                { feature: 'CashTokens templates', cashscript: '✗', solidity: '✗', cashlang: '✓' },
+                { feature: 'Covenant patterns', cashscript: '✗', solidity: '✗', cashlang: '✓' },
+                { feature: 'One-click deployment', cashscript: '✗', solidity: '✓', cashlang: '✓' },
+                { feature: 'BCH native', cashscript: '✓', solidity: '✗', cashlang: '✓' },
+              ].map((row, i) => (
+                <tr key={i} className="hover:bg-gray-50">
+                  <td className="px-6 py-4 font-medium text-gray-900">{row.feature}</td>
+                  <td className="px-6 py-4 text-center text-gray-600">{row.cashscript}</td>
+                  <td className="px-6 py-4 text-center text-gray-600">{row.solidity}</td>
+                  <td className="px-6 py-4 text-center font-bold text-green-600 bg-green-50">{row.cashlang}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </motion.div>
       </div>
 

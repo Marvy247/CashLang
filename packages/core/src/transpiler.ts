@@ -1,5 +1,6 @@
 import { parse } from './parser.js';
 import { generate } from './codegen.js';
+import { applyCashTokensSugar } from './cashtokens.js';
 import type { CompileResult } from '@cashlang/shared';
 
 // Estimate bytecode size based on CashScript operations
@@ -63,8 +64,11 @@ function generateBytecode(cashscript: string, contractName: string): string {
 
 export function transpile(source: string): CompileResult {
   try {
+    // Apply CashTokens syntax sugar first
+    const transformedSource = applyCashTokensSugar(source);
+    
     // Parse source
-    const { ast, errors } = parse(source);
+    const { ast, errors } = parse(transformedSource);
 
     if (errors.length > 0 || !ast) {
       return {

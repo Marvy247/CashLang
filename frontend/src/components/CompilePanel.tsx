@@ -1,11 +1,11 @@
 import { Play, Loader2, CheckCircle2, XCircle, Zap } from 'lucide-react';
 import { useEditorStore } from '../store/editorStore';
-import { transpile, simulate } from '@cashlang/core';
+import { transpile, simulate, analyzeContract } from '@cashlang/core';
 import toast from 'react-hot-toast';
 import { ExportPanel } from './ExportPanel';
 
 export function CompileButton() {
-  const { currentFile, files, setCompileResult, isCompiling, setIsCompiling } = useEditorStore();
+  const { currentFile, files, setCompileResult, setSecurityReport, isCompiling, setIsCompiling } = useEditorStore();
 
   const handleCompile = async () => {
     setIsCompiling(true);
@@ -20,6 +20,12 @@ export function CompileButton() {
     if (result.success && result.cashscript) {
       const simResult = simulate(result.cashscript);
       result.simulation = simResult;
+      
+      // Run security analysis
+      const securityReport = analyzeContract(source, result.cashscript);
+      setSecurityReport(securityReport);
+    } else {
+      setSecurityReport(null);
     }
     
     setCompileResult(result);
