@@ -234,7 +234,7 @@ export function parse(source: string): { ast: ContractNode | null; errors: Compi
     let left = parsePrimary();
     if (!left) return null;
 
-    while (peek() && ['GT', 'LT', 'EQ', 'NEQ', 'GTE', 'LTE', 'PLUS', 'MINUS'].includes(peek()!.type)) {
+    while (peek() && ['GT', 'LT', 'EQ', 'NEQ', 'GTE', 'LTE', 'PLUS', 'MINUS', 'STAR', 'SLASH'].includes(peek()!.type)) {
       const op = advance();
       const right = parsePrimary();
       if (!right) break;
