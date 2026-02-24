@@ -218,19 +218,40 @@ export function parse(source: string): { ast: ContractNode | null; errors: Compi
     if (!token) return null;
 
     if (token.type === 'IDENTIFIER') {
-      advance();
-      // Check for member access or call
+      const idToken = advance();
+      
+      // Check for function call
+      if (peek()?.type === 'LPAREN') {
+        advance(); // consume (
+        const args: ExpressionNode[] = [];
+        
+        while (peek() && peek()!.type !== 'RPAREN') {
+          const arg = parseExpression();
+          if (arg) args.push(arg);
+          if (peek()?.type === 'COMMA') advance();
+        }
+        
+        expect('RPAREN');
+        return {
+          type: 'CallExpression',
+          callee: { type: 'Identifier', name: idToken.value } as Identifier,
+          arguments: args
+        } as CallExpression;
+      }
+      
+      // Check for member access
       if (peek()?.type === 'DOT') {
         advance();
         const property = expect('IDENTIFIER');
         if (!property) return null;
         return {
           type: 'MemberExpression',
-          object: { type: 'Identifier', name: token.value } as Identifier,
+          object: { type: 'Identifier', name: idToken.value } as Identifier,
           property: { type: 'Identifier', name: property.value } as Identifier
         } as MemberExpression;
       }
-      return { type: 'Identifier', name: token.value } as Identifier;
+      
+      return { type: 'Identifier', name: idToken.value } as Identifier;
     }
 
     if (token.type === 'NUMBER' || token.type === 'STRING') {

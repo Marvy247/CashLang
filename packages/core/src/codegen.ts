@@ -1,4 +1,4 @@
-import type { ContractNode, FunctionNode, StatementNode, ExpressionNode, RequireStatement, BinaryExpression, Identifier, Literal, MemberExpression } from './parser.js';
+import type { ContractNode, FunctionNode, StatementNode, ExpressionNode, RequireStatement, BinaryExpression, Identifier, Literal, MemberExpression, CallExpression } from './parser.js';
 import type { ContractArtifact } from '@cashlang/shared';
 
 // Code generator: AST -> CashScript
@@ -85,6 +85,12 @@ function generateExpression(expr: ExpressionNode): string {
     case 'MemberExpression': {
       const mem = expr as MemberExpression;
       return `${generateExpression(mem.object)}.${mem.property.name}`;
+    }
+    case 'CallExpression': {
+      const call = expr as CallExpression;
+      const callee = generateExpression(call.callee);
+      const args = call.arguments.map((arg: ExpressionNode) => generateExpression(arg)).join(', ');
+      return `${callee}(${args})`;
     }
     default:
       return '';
