@@ -264,6 +264,20 @@ export function parse(source: string): { ast: ContractNode | null; errors: Compi
     if (token.type === 'IDENTIFIER') {
       const idToken = advance();
       
+      // Check for member access (can be chained)
+      let expr: ExpressionNode = { type: 'Identifier', name: idToken.value } as Identifier;
+      
+      while (peek()?.type === 'DOT') {
+        advance(); // consume .
+        const property = expect('IDENTIFIER');
+        if (!property) break;
+        expr = {
+          type: 'MemberExpression',
+          object: expr,
+          property: { type: 'Identifier', name: property.value } as Identifier
+        } as MemberExpression;
+      }
+      
       // Check for function call
       if (peek()?.type === 'LPAREN') {
         advance(); // consume (
@@ -278,24 +292,12 @@ export function parse(source: string): { ast: ContractNode | null; errors: Compi
         expect('RPAREN');
         return {
           type: 'CallExpression',
-          callee: { type: 'Identifier', name: idToken.value } as Identifier,
+          callee: expr,
           arguments: args
         } as CallExpression;
       }
       
-      // Check for member access
-      if (peek()?.type === 'DOT') {
-        advance();
-        const property = expect('IDENTIFIER');
-        if (!property) return null;
-        return {
-          type: 'MemberExpression',
-          object: { type: 'Identifier', name: idToken.value } as Identifier,
-          property: { type: 'Identifier', name: property.value } as Identifier
-        } as MemberExpression;
-      }
-      
-      return { type: 'Identifier', name: idToken.value } as Identifier;
+      return expr;
     }
 
     if (token.type === 'NUMBER' || token.type === 'STRING') {
