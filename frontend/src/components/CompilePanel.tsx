@@ -2,6 +2,7 @@ import { Play, Loader2, CheckCircle2, XCircle, Zap } from 'lucide-react';
 import { useEditorStore } from '../store/editorStore';
 import { transpile, simulate } from '@cashlang/core';
 import toast from 'react-hot-toast';
+import { ExportPanel } from './ExportPanel';
 
 export function CompileButton() {
   const { currentFile, files, setCompileResult, isCompiling, setIsCompiling } = useEditorStore();
@@ -64,97 +65,102 @@ export function OutputPanel() {
   }
 
   return (
-    <div className="h-full overflow-auto p-4 space-y-4">
-      {/* Status */}
-      <div className="flex items-center gap-2">
-        {compileResult.success ? (
-          <>
-            <CheckCircle2 className="w-5 h-5 text-green-500" />
-            <span className="font-semibold text-green-600">Compilation Successful</span>
-          </>
-        ) : (
-          <>
-            <XCircle className="w-5 h-5 text-red-500" />
-            <span className="font-semibold text-red-600">Compilation Failed</span>
-          </>
+    <div className="h-full flex flex-col">
+      <div className="flex-1 overflow-auto p-4 space-y-4">
+        {/* Status */}
+        <div className="flex items-center gap-2">
+          {compileResult.success ? (
+            <>
+              <CheckCircle2 className="w-5 h-5 text-green-500" />
+              <span className="font-semibold text-green-600">Compilation Successful</span>
+            </>
+          ) : (
+            <>
+              <XCircle className="w-5 h-5 text-red-500" />
+              <span className="font-semibold text-red-600">Compilation Failed</span>
+            </>
+          )}
+        </div>
+
+        {/* Errors */}
+        {compileResult.errors && compileResult.errors.length > 0 && (
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+            <h3 className="font-semibold text-red-800 mb-2">Errors:</h3>
+            {compileResult.errors.map((err, i) => (
+              <div key={i} className="text-sm text-red-700 font-mono">
+                Line {err.line}:{err.column} - {err.message}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Simulation Results */}
+        {compileResult.success && compileResult.simulation && (
+          <div className={`border rounded-lg p-4 ${
+            compileResult.simulation.success 
+              ? 'bg-green-50 border-green-200' 
+              : 'bg-red-50 border-red-200'
+          }`}>
+            <div className="flex items-center gap-2 mb-2">
+              <Zap className={`w-4 h-4 ${compileResult.simulation.success ? 'text-green-600' : 'text-red-600'}`} />
+              <h3 className={`font-semibold ${compileResult.simulation.success ? 'text-green-800' : 'text-red-800'}`}>
+                Simulation {compileResult.simulation.success ? 'Passed' : 'Failed'}
+              </h3>
+            </div>
+            
+            {compileResult.simulation.logs && (
+              <div className="space-y-1 text-sm">
+                {compileResult.simulation.logs.map((log, i) => (
+                  <div key={i} className="text-gray-700 font-mono">{log}</div>
+                ))}
+              </div>
+            )}
+            
+            {compileResult.simulation.gasUsed && (
+              <div className="mt-2 text-sm text-gray-600">
+                Gas used: <span className="font-mono font-semibold">{compileResult.simulation.gasUsed}</span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Generated CashScript */}
+        {compileResult.success && compileResult.cashscript && (
+          <div>
+            <h3 className="font-semibold text-gray-700 mb-2">Generated CashScript:</h3>
+            <pre className="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm">
+              {compileResult.cashscript}
+            </pre>
+          </div>
+        )}
+
+        {/* Bytecode Info */}
+        {compileResult.success && (
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+              <div className="text-xs text-blue-600 font-medium">Bytecode Size</div>
+              <div className="text-2xl font-bold text-blue-900">{compileResult.bytecodeSize} bytes</div>
+            </div>
+            <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
+              <div className="text-xs text-purple-600 font-medium">Functions</div>
+              <div className="text-2xl font-bold text-purple-900">{compileResult.artifact?.abi.length || 0}</div>
+            </div>
+          </div>
+        )}
+
+        {/* Artifact */}
+        {compileResult.success && compileResult.artifact && (
+          <details className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+            <summary className="font-semibold text-gray-700 cursor-pointer">Contract Artifact (JSON)</summary>
+            <pre className="mt-2 text-xs overflow-x-auto">
+              {JSON.stringify(compileResult.artifact, null, 2)}
+            </pre>
+          </details>
         )}
       </div>
 
-      {/* Errors */}
-      {compileResult.errors && compileResult.errors.length > 0 && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <h3 className="font-semibold text-red-800 mb-2">Errors:</h3>
-          {compileResult.errors.map((err, i) => (
-            <div key={i} className="text-sm text-red-700 font-mono">
-              Line {err.line}:{err.column} - {err.message}
-            </div>
-          ))}
-        </div>
-      )}
-
-      {/* Simulation Results */}
-      {compileResult.success && compileResult.simulation && (
-        <div className={`border rounded-lg p-4 ${
-          compileResult.simulation.success 
-            ? 'bg-green-50 border-green-200' 
-            : 'bg-red-50 border-red-200'
-        }`}>
-          <div className="flex items-center gap-2 mb-2">
-            <Zap className={`w-4 h-4 ${compileResult.simulation.success ? 'text-green-600' : 'text-red-600'}`} />
-            <h3 className={`font-semibold ${compileResult.simulation.success ? 'text-green-800' : 'text-red-800'}`}>
-              Simulation {compileResult.simulation.success ? 'Passed' : 'Failed'}
-            </h3>
-          </div>
-          
-          {compileResult.simulation.logs && (
-            <div className="space-y-1 text-sm">
-              {compileResult.simulation.logs.map((log, i) => (
-                <div key={i} className="text-gray-700 font-mono">{log}</div>
-              ))}
-            </div>
-          )}
-          
-          {compileResult.simulation.gasUsed && (
-            <div className="mt-2 text-sm text-gray-600">
-              Gas used: <span className="font-mono font-semibold">{compileResult.simulation.gasUsed}</span>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Generated CashScript */}
-      {compileResult.success && compileResult.cashscript && (
-        <div>
-          <h3 className="font-semibold text-gray-700 mb-2">Generated CashScript:</h3>
-          <pre className="bg-gray-900 text-green-400 p-4 rounded-lg overflow-x-auto text-sm">
-            {compileResult.cashscript}
-          </pre>
-        </div>
-      )}
-
-      {/* Bytecode Info */}
-      {compileResult.success && (
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-            <div className="text-xs text-blue-600 font-medium">Bytecode Size</div>
-            <div className="text-2xl font-bold text-blue-900">{compileResult.bytecodeSize} bytes</div>
-          </div>
-          <div className="bg-purple-50 border border-purple-200 rounded-lg p-3">
-            <div className="text-xs text-purple-600 font-medium">Functions</div>
-            <div className="text-2xl font-bold text-purple-900">{compileResult.artifact?.abi.length || 0}</div>
-          </div>
-        </div>
-      )}
-
-      {/* Artifact */}
-      {compileResult.success && compileResult.artifact && (
-        <details className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-          <summary className="font-semibold text-gray-700 cursor-pointer">Contract Artifact (JSON)</summary>
-          <pre className="mt-2 text-xs overflow-x-auto">
-            {JSON.stringify(compileResult.artifact, null, 2)}
-          </pre>
-        </details>
-      )}
+      {/* Export Panel */}
+      {compileResult.success && <ExportPanel />}
     </div>
   );
 }
