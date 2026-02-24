@@ -323,6 +323,27 @@ function tokenize(source: string): Token[] {
       continue;
     }
 
+    // Multi-line comments
+    if (char === '/' && source[i + 1] === '*') {
+      i += 2;
+      column += 2;
+      while (i < source.length - 1) {
+        if (source[i] === '\n') {
+          line++;
+          column = 1;
+        } else {
+          column++;
+        }
+        if (source[i] === '*' && source[i + 1] === '/') {
+          i += 2;
+          column += 2;
+          break;
+        }
+        i++;
+      }
+      continue;
+    }
+
     // Identifiers and keywords
     if (/[a-zA-Z_]/.test(char)) {
       let value = '';

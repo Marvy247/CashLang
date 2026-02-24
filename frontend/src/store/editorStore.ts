@@ -20,7 +20,7 @@ export const useEditorStore = create<EditorState>((set) => ({
   currentFile: 'main.cash',
   files: {
     'main.cash': `// Welcome to CashLang! 🚀
-// Write Bitcoin Cash smart contracts in a clean, modern syntax
+// Click "Templates" to load a production-ready contract
 
 contract SimpleVault(pubkey owner, int amount) {
   function withdraw(sig ownerSig) {
