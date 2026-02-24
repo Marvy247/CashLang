@@ -2,229 +2,287 @@
 
 ## 30-Second Demo (Social Media / Quick Pitch)
 
-**Script:**
+**[SCREEN: Landing page visible]**
 
-1. **[0-5s]** "Building Bitcoin Cash smart contracts is hard. Until now."
-   - Show landing page with hackathon badge
+**SAY:** "Building Bitcoin Cash smart contracts is hard. Until now."
 
-2. **[5-10s]** Click "Get Started" → IDE loads
-   - Show clean, professional interface
+**[ACTION: Click "Get Started" button]**
 
-3. **[10-15s]** Click "Templates" → Select "Token Vault"
-   - Code appears instantly in Monaco Editor
+**SAY:** "This is CashLang - the first professional IDE for Bitcoin Cash."
 
-4. **[15-20s]** Click "Compile" → Show compilation progress
-   - Watch realistic 3-second compilation
+**[ACTION: Click "Templates" button in header]**
 
-5. **[20-25s]** Show results:
-   - Generated CashScript code
-   - Switch to "Security" tab → Show A grade
-   - Highlight security checks passed
+**SAY:** "It comes with five production-ready templates."
 
-6. **[25-30s]** "CashLang. Smart contracts made simple, secure, and professional."
-   - Show URL: cashlang.vercel.app
+**[ACTION: Click "Token Vault" template]**
 
----
+**SAY:** "Watch this. Clean, high-level syntax - just like Solidity."
 
-## 2-Minute Technical Demo (Judges / Presentations)
+**[ACTION: Click green "Compile" button]**
 
-**Script:**
+**SAY:** "Real-time compilation to CashScript."
 
-### Introduction (0:00-0:20)
-"Hi, I'm presenting CashLang - the first high-level smart contract framework for Bitcoin Cash with built-in security analysis. Let me show you why this matters."
+**[SCREEN: Wait for compilation to finish, show Output tab]**
 
-### Problem Statement (0:20-0:40)
-"Bitcoin Cash has powerful CashTokens, but the developer experience is rough. CashScript is low-level, there's no good IDE, and there's zero tooling for security. This keeps talented developers away from BCH."
+**SAY:** "And here's the magic - built-in security analysis."
 
-### Solution Demo (0:40-1:40)
+**[ACTION: Click "Security" tab]**
 
-**[0:40-0:50] Landing Page**
-- "CashLang solves this. Open the IDE..."
-- Show professional landing page
-- Click "Get Started"
+**SAY:** "Grade A. Eight security checks passed automatically."
 
-**[0:50-1:00] Templates**
-- "We have 5 production-ready templates showcasing CashTokens"
-- Click "Templates" button
-- Scroll through: Token Vault, NFT Minting, DAO Voting, DEX Swap, Vesting
-- Select "Token Vault"
+**[SCREEN: Show security score and checks]**
 
-**[1:00-1:10] Code Editor**
-- "Notice the clean, high-level syntax - like Solidity or TypeScript"
-- Point out: `token.category`, `token.amount` syntax sugar
-- "This is Monaco Editor - the same engine as VS Code"
+**SAY:** "CashLang. Smart contracts made simple and secure. Try it at cashlang dot vercel dot app."
 
-**[1:10-1:20] Compilation**
-- Click "Compile"
-- "Real-time transpilation to CashScript"
-- Show generated code in Output tab
-
-**[1:20-1:30] Security Analysis**
-- Switch to "Security" tab
-- "Here's the innovation: built-in security analysis"
-- Show A grade, security score
-- Point out checks: signature verification, time locks, token preservation
-- "8 comprehensive security checks with actionable suggestions"
-
-**[1:30-1:40] Covenant Patterns**
-- Click "Covenant Patterns" button
-- "4 battle-tested CashTokens patterns ready to use"
-- Show: Token preservation, NFT transfer, Minting, Token split
-- "One-click insert into your code"
-
-### Impact (1:40-2:00)
-"This is the tool that can bring thousands of Ethereum and Web3 developers to Bitcoin Cash. It's production-ready, open source, and solves real problems. Thank you."
+**[SCREEN: Show URL on screen]**
 
 ---
 
-## 5-Minute Deep Dive (Technical Audience)
+## 2-Minute Demo (Judges / Presentations)
 
-### Setup (0:00-0:30)
-- Introduction and problem statement
-- Show landing page with comparison table
-- Highlight: CashScript vs Solidity vs CashLang
+**[SCREEN: Landing page visible]**
 
-### Core Features (0:30-2:00)
+**SAY:** "Hi, I'm presenting CashLang - and I'm going to show you why this could change Bitcoin Cash development forever."
 
-**Transpiler (0:30-1:00)**
-- Open any template
-- Explain syntax sugar: `token.category` → `tx.inputs[this.activeInputIndex].tokenCategory`
-- Show how it transpiles to clean CashScript
-- Mention: Custom recursive descent parser, AST-based codegen
+**[PAUSE 2 seconds]**
 
-**Security Analyzer (1:00-1:30)**
-- Compile a contract
-- Deep dive into Security tab
-- Explain each check:
-  - Signature verification
-  - Time lock enforcement
-  - Token preservation
-  - Integer overflow protection
-  - NFT capability validation
-  - Output validation
-  - Reentrancy protection
-  - Hardcoded values detection
-- Show how grade is calculated (A-F)
+**SAY:** "Bitcoin Cash has powerful CashTokens, but the developer experience is terrible. CashScript is low-level, there's no good IDE, and there's zero security tooling. This keeps developers away."
 
-**Covenant Patterns (1:30-2:00)**
-- Open Covenant Patterns modal
-- Explain each pattern:
-  - Token Preservation: Ensure tokens aren't lost
-  - NFT Transfer Guard: Validate ownership
-  - Minting Covenant: Control NFT creation
-  - Token Split: Divide fungible tokens
-- Show one-click insert feature
+**[ACTION: Scroll down to comparison table]**
 
-### Architecture (2:00-3:30)
+**SAY:** "Look at this comparison. CashScript has no IDE. Solidity isn't BCH-native. CashLang has everything."
 
-**Monorepo Structure (2:00-2:30)**
-```
-cashlang/
-├── packages/
-│   ├── shared/      # TypeScript types
-│   ├── core/        # Transpiler engine
-│   │   ├── parser.ts      # Tokenizer + parser
-│   │   ├── codegen.ts     # Code generation
-│   │   ├── security.ts    # Security analyzer
-│   │   ├── cashtokens.ts  # Syntax sugar
-│   │   └── templates.ts   # 5 templates
-│   └── frontend/    # React IDE
-```
+**[ACTION: Scroll back up, click "Get Started"]**
 
-**Tech Stack (2:30-3:00)**
-- Frontend: React 18, TypeScript, Tailwind, Monaco Editor
-- Build: Vite (fast HMR), tsup (package bundling)
-- State: Zustand (lightweight)
-- Transpiler: Custom parser → AST → CashScript
-- Deployment: Vercel (one-click)
+**[SCREEN: IDE loads]**
 
-**Code Quality (3:00-3:30)**
-- Show clean git history
-- Mention: 3,500 lines of code
-- TypeScript throughout
-- Comprehensive error handling
-- Real-time feedback
+**SAY:** "This is a professional web IDE. Monaco Editor - the same engine as VS Code. Dark mode. File management. Everything you expect."
 
-### Innovation & Impact (3:30-4:30)
+**[ACTION: Click "Templates" button]**
 
-**What's New (3:30-4:00)**
-- First BCH contract security analyzer
-- First covenant pattern library
-- First high-level syntax with CashTokens sugar
-- First production-ready web IDE for BCH
+**[SCREEN: Template gallery opens]**
 
-**Why It Matters (4:00-4:30)**
-- Lowers barrier for millions of developers
-- Makes CashTokens accessible
-- Provides security best practices
-- Accelerates BCH ecosystem growth
-- Open source - community can extend
+**SAY:** "Five production-ready templates. Token Vault. NFT Minting. DAO Voting. DEX Swap. Token Vesting. All showcasing CashTokens."
 
-### Roadmap & Conclusion (4:30-5:00)
+**[ACTION: Click "Token Vault"]**
 
-**Next Steps**
-- VS Code extension
-- CLI tool
-- Real BCH VM integration (libauth)
-- Expand to 20+ security checks
-- More covenant patterns
-- Community Discord
-- Video tutorials
+**[SCREEN: Code appears in editor]**
 
-**Closing**
-"CashLang is production-ready today. It's the tool Bitcoin Cash needs to onboard the next wave of builders. Thank you."
+**SAY:** "Look at this syntax. Token dot category. Token dot amount. This is syntax sugar - it makes CashTokens intuitive."
+
+**[PAUSE 2 seconds, let them read code]**
+
+**SAY:** "Now watch this."
+
+**[ACTION: Click green "Compile" button]**
+
+**[SCREEN: Compilation starts, spinner shows]**
+
+**SAY:** "Real-time transpilation. It's converting this high-level code to CashScript."
+
+**[SCREEN: Compilation finishes, Output tab shows]**
+
+**SAY:** "There's the generated CashScript. Clean. Optimized. Ready to deploy."
+
+**[ACTION: Scroll down in Output to show artifact]**
+
+**SAY:** "Contract artifact. Bytecode size. Simulation results. Everything you need."
+
+**[ACTION: Click "Security" tab]**
+
+**[SCREEN: Security panel appears]**
+
+**SAY:** "But here's the innovation. Built-in security analysis. Grade A. Ninety-five out of one hundred."
+
+**[ACTION: Scroll through security checks]**
+
+**SAY:** "Eight comprehensive checks. Signature verification - passed. Time lock enforcement - passed. Token preservation - passed. This is the first security analyzer for Bitcoin Cash."
+
+**[ACTION: Scroll to issues section if any]**
+
+**SAY:** "And if there were issues, you'd see them here with actionable suggestions on how to fix them."
+
+**[ACTION: Click "Covenant Patterns" button in header]**
+
+**[SCREEN: Covenant Patterns modal opens]**
+
+**SAY:** "One more thing. Four battle-tested covenant patterns. Token preservation. NFT transfer. Minting. Token splitting."
+
+**[ACTION: Hover over one pattern]**
+
+**SAY:** "One click to insert into your code. Production-ready patterns that save you hours."
+
+**[ACTION: Close modal]**
+
+**[SCREEN: Back to IDE]**
+
+**SAY:** "This is production-ready today. Three thousand five hundred lines of TypeScript. Open source. MIT licensed."
+
+**[PAUSE 2 seconds]**
+
+**SAY:** "CashLang can bring thousands of Ethereum and Web3 developers to Bitcoin Cash. It makes development simple, secure, and professional. Thank you."
+
+**[SCREEN: Show URL: cashlang.vercel.app]**
 
 ---
 
-## Key Talking Points
+## 5-Minute Technical Deep Dive
 
-### For Judges
-- **Execution:** Fully functional, not a prototype
-- **Innovation:** First security analyzer for BCH
-- **Impact:** Can onboard thousands of developers
-- **CashTokens:** Every feature showcases tokens
-- **Quality:** Professional UI, clean code, comprehensive docs
+**[SCREEN: Landing page visible]**
 
-### For Developers
-- **Familiar:** If you know Solidity/TypeScript, you know CashLang
-- **Fast:** 2-5 second compilation
-- **Secure:** Built-in security analysis
-- **Helpful:** Covenant patterns save hours
-- **Free:** Open source, MIT licensed
+**SAY:** "I'm going to show you CashLang - the first high-level smart contract framework for Bitcoin Cash with built-in security analysis. And I'm going to show you exactly why this matters."
 
-### For BCH Community
-- **Accessible:** Zero installation, works in browser
-- **Educational:** Learn CashTokens through templates
-- **Practical:** Generate real deployment scripts
-- **Extensible:** Clear roadmap to production tool
-- **Community-driven:** Open to contributions
+**[PAUSE 2 seconds]**
+
+### Problem (0:00-0:30)
+
+**SAY:** "Bitcoin Cash has incredible potential. CashTokens enable NFTs, DAOs, DeFi - everything Ethereum can do. But the developer experience is rough."
+
+**[ACTION: Scroll to comparison table]**
+
+**SAY:** "CashScript is low-level and verbose. There's no professional IDE. Zero security tools. No templates. No patterns. This is why BCH has fewer developers than it should."
+
+**[ACTION: Scroll back up]**
+
+**SAY:** "CashLang solves all of this."
+
+### Solution Overview (0:30-1:00)
+
+**[ACTION: Click "Get Started"]**
+
+**[SCREEN: IDE loads]**
+
+**SAY:** "Professional web IDE. Monaco Editor - that's VS Code's engine. File management. Search. Dark mode. Keyboard shortcuts. Status bar. Everything you expect from a modern development tool."
+
+**[ACTION: Click "Templates"]**
+
+**[SCREEN: Template gallery]**
+
+**SAY:** "Five production-ready templates. Let me show you the Token Vault."
+
+**[ACTION: Click "Token Vault"]**
+
+### Code & Syntax (1:00-2:00)
+
+**[SCREEN: Code in editor]**
+
+**SAY:** "Look at this syntax. Contract TokenVault. Parameters: owner pubkey, unlock time. Function withdraw with owner signature."
+
+**[ACTION: Point to token.category line if present, or scroll through code]**
+
+**SAY:** "This is high-level. If you know Solidity or TypeScript, you know CashLang. But here's the innovation - syntax sugar for CashTokens."
+
+**[ACTION: Type or show: token.category]**
+
+**SAY:** "Token dot category. Token dot amount. Token dot NFT dot commitment. This transpiles to the full CashScript path - tx dot inputs bracket this dot active input index bracket dot token category. We make it simple."
+
+**[PAUSE 2 seconds]**
+
+**SAY:** "Now let's compile."
+
+**[ACTION: Click "Compile"]**
+
+### Compilation (2:00-2:30)
+
+**[SCREEN: Compilation progress]**
+
+**SAY:** "Real-time transpilation. Custom recursive descent parser. Builds an abstract syntax tree. Generates clean CashScript."
+
+**[SCREEN: Compilation finishes]**
+
+**SAY:** "Two to five seconds depending on code size. That's realistic - it feels professional."
+
+**[ACTION: Scroll through Output]**
+
+**SAY:** "Generated CashScript. Contract artifact with JSON ABI. Bytecode size estimation. Simulation results. Everything you need to deploy."
+
+### Security Analysis (2:30-3:30)
+
+**[ACTION: Click "Security" tab]**
+
+**[SCREEN: Security panel]**
+
+**SAY:** "This is the game-changer. Built-in security analysis. No other Bitcoin Cash tool has this."
+
+**[ACTION: Point to grade]**
+
+**SAY:** "Grade A. Ninety-five out of one hundred. Eight comprehensive security checks."
+
+**[ACTION: Scroll through passed checks]**
+
+**SAY:** "Signature verification - present. Time lock enforcement - correct. Token preservation - validated. Integer overflow protection - checked. NFT capability validation - passed. Output validation - present. Reentrancy protection - verified. Hardcoded values - none found."
+
+**[ACTION: Scroll to issues section]**
+
+**SAY:** "If there were issues, they'd appear here. Critical in red. Warnings in yellow. Info in blue. Each with an actionable suggestion on how to fix it."
+
+**[PAUSE 2 seconds]**
+
+**SAY:** "This raises the security bar for the entire BCH ecosystem."
+
+### Covenant Patterns (3:30-4:00)
+
+**[ACTION: Click "Covenant Patterns" button]**
+
+**[SCREEN: Patterns modal]**
+
+**SAY:** "Four battle-tested covenant patterns. Token preservation - ensures tokens aren't lost in transactions. NFT transfer guard - validates ownership before transfer. Minting covenant - controls NFT creation with authority checks. Token split - divides fungible tokens while preserving total."
+
+**[ACTION: Click "Insert into Editor" on one pattern]**
+
+**[SCREEN: Pattern inserted into code]**
+
+**SAY:** "One click. Production-ready code. This saves developers hours of work and prevents common mistakes."
+
+### Architecture (4:00-4:30)
+
+**[ACTION: Close modal, show IDE]**
+
+**SAY:** "Let me tell you what's under the hood. Monorepo with three packages. Shared types. Core transpiler with parser, code generator, security analyzer, and CashTokens syntax transformer. Frontend with React, TypeScript, and Tailwind."
+
+**[PAUSE 1 second]**
+
+**SAY:** "Three thousand five hundred lines of TypeScript. Custom parser - not a hack on top of CashScript. Real AST-based code generation. Comprehensive error handling. Professional documentation."
+
+### Impact & Conclusion (4:30-5:00)
+
+**[SCREEN: Show landing page or IDE]**
+
+**SAY:** "This is production-ready today. Open source. MIT licensed. And it solves a critical problem."
+
+**[PAUSE 2 seconds]**
+
+**SAY:** "There are millions of Solidity and TypeScript developers in the world. CashLang makes Bitcoin Cash accessible to all of them. It provides security best practices. It accelerates development by ten times with templates and patterns."
+
+**[PAUSE 2 seconds]**
+
+**SAY:** "This is the tool that can bring the next wave of builders to Bitcoin Cash. Thank you."
+
+**[SCREEN: Show URL: cashlang.vercel.app]**
 
 ---
 
-## Demo Tips
+## Key Phrases to Emphasize
 
-1. **Practice timing** - Know exactly what to show in 30s/2min/5min
-2. **Have backup** - Record screen in case live demo fails
-3. **Highlight innovation** - Security analyzer is unique
-4. **Show, don't tell** - Let the UI speak for itself
-5. **End with impact** - "This brings developers to BCH"
+- "First security analyzer for Bitcoin Cash"
+- "Production-ready today"
+- "Three thousand five hundred lines of TypeScript"
+- "Grade A security score"
+- "Makes CashTokens intuitive"
+- "Brings millions of developers to BCH"
 
-## Common Questions & Answers
+## Timing Tips
 
-**Q: How is this different from CashScript?**
-A: CashLang is a higher-level language that compiles TO CashScript, with added security analysis and developer tools.
+- Speak clearly and confidently
+- Pause after key points (2 seconds)
+- Let visuals speak during compilation
+- Don't rush through security checks
+- End with impact statement
 
-**Q: Is this production-ready?**
-A: The IDE and transpiler work today. For production contracts, we recommend reviewing generated CashScript before deployment.
+## Backup Plan
 
-**Q: What about performance?**
-A: Compilation is 2-5 seconds. Generated CashScript is clean and optimized.
-
-**Q: Can I use this offline?**
-A: Currently web-only, but CLI tool is on the roadmap.
-
-**Q: How do I deploy contracts?**
-A: CashLang generates deployment scripts. Use them with CashScript SDK.
-
-**Q: Is it open source?**
-A: Yes! MIT licensed. Contributions welcome.
+If live demo fails:
+1. Have screen recording ready
+2. Say: "Let me show you the recording"
+3. Continue with same script
+4. Maintain confidence
