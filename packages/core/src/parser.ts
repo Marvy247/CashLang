@@ -439,9 +439,10 @@ function tokenize(source: string): Token[] {
     };
 
     // Two-char operators
-    if (source[i + 1] && ops[char + source[i + 1]]) {
-      const op = char + source[i + 1];
-      tokens.push({ type: op === '==' ? 'EQ' : op === '!=' ? 'NEQ' : op === '>=' ? 'GTE' : 'LTE', value: op, line, column });
+    const twoChar = char + source[i + 1];
+    if (source[i + 1] && (twoChar === '==' || twoChar === '!=' || twoChar === '>=' || twoChar === '<=')) {
+      const tokenType = twoChar === '==' ? 'EQ' : twoChar === '!=' ? 'NEQ' : twoChar === '>=' ? 'GTE' : 'LTE';
+      tokens.push({ type: tokenType, value: twoChar, line, column });
       i += 2;
       column += 2;
       continue;
