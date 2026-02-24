@@ -1,22 +1,26 @@
 import { useState, useEffect } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import { Toaster } from 'react-hot-toast';
-import { Code2, Sparkles, Moon, Sun, Github, HelpCircle } from 'lucide-react';
+import { Code2, Sparkles, Moon, Sun, Github, HelpCircle, Home } from 'lucide-react';
 import { CodeEditor } from './components/CodeEditor';
 import { FileTree } from './components/FileTree';
 import { CompileButton, OutputPanel } from './components/CompilePanel';
 import { TemplateGallery } from './components/TemplateGallery';
 import { HelpModal } from './components/HelpModal';
+import { LandingPage } from './components/LandingPage';
 import { useEditorStore } from './store/editorStore';
 
 function App() {
   const [darkMode, setDarkMode] = useState(true);
   const [showTemplates, setShowTemplates] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [showLanding, setShowLanding] = useState(true);
   const { currentFile } = useEditorStore();
 
   // Keyboard shortcuts
   useEffect(() => {
+    if (showLanding) return; // Disable shortcuts on landing page
+
     const handleKeyDown = (e: KeyboardEvent) => {
       // Ctrl+S - Compile
       if (e.ctrlKey && e.key === 's') {
@@ -40,7 +44,16 @@ function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  }, [showLanding]);
+
+  if (showLanding) {
+    return (
+      <>
+        <Analytics />
+        <LandingPage onGetStarted={() => setShowLanding(false)} />
+      </>
+    );
+  }
 
   return (
     <div className={`h-screen flex flex-col ${darkMode ? 'dark' : ''}`}>
@@ -50,6 +63,13 @@ function App() {
       {/* Header */}
       <header className="h-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white flex items-center justify-between px-6 shadow-lg">
         <div className="flex items-center gap-3">
+          <button
+            onClick={() => setShowLanding(true)}
+            className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+            title="Back to home"
+          >
+            <Home className="w-5 h-5" />
+          </button>
           <div className="p-2 bg-white/20 rounded-lg backdrop-blur">
             <Code2 className="w-6 h-6" />
           </div>
