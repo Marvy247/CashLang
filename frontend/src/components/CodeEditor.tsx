@@ -1,17 +1,21 @@
 import Editor from '@monaco-editor/react';
 import { useEditorStore } from '../store/editorStore';
 
-export function CodeEditor() {
+interface CodeEditorProps {
+  darkMode: boolean;
+}
+
+export function CodeEditor({ darkMode }: CodeEditorProps) {
   const { currentFile, files, updateFile } = useEditorStore();
   const content = files[currentFile] || '';
 
   return (
-    <div className="h-full w-full relative">
+    <div className={`h-full w-full relative ${darkMode ? 'bg-[#1e1e1e]' : 'bg-white'}`}>
       <Editor
         height="100%"
         defaultLanguage="javascript"
         language="javascript"
-        theme="vs-dark"
+        theme={darkMode ? 'vs-dark' : 'light'}
         value={content}
         onChange={(value: string | undefined) => updateFile(currentFile, value || '')}
         options={{

@@ -62,28 +62,28 @@ function App() {
       <Toaster position="top-right" />
 
       {/* Header */}
-      <header className="h-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white flex items-center justify-between px-6 shadow-lg">
+      <header className="h-16 bg-gray-900 text-white flex items-center justify-between px-6 shadow-lg">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setShowLanding(true)}
-            className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
             title="Back to home"
           >
             <Home className="w-5 h-5" />
           </button>
-          <div className="p-2 bg-white/20 rounded-lg backdrop-blur">
+          <div className="p-2 bg-gray-800 rounded-lg">
             <Code2 className="w-6 h-6" />
           </div>
           <div>
             <h1 className="text-xl font-bold tracking-tight">CashLang</h1>
-            <p className="text-xs text-blue-100">Bitcoin Cash Smart Contract IDE</p>
+            <p className="text-xs text-gray-400">Bitcoin Cash Smart Contract IDE</p>
           </div>
         </div>
 
         <div className="flex items-center gap-4">
           <button
             onClick={() => setShowTemplates(!showTemplates)}
-            className="flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors backdrop-blur"
+            className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
           >
             <Sparkles className="w-4 h-4" />
             Templates
@@ -91,7 +91,7 @@ function App() {
           
           <button
             onClick={() => setShowHelp(true)}
-            className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
             title="Keyboard shortcuts"
           >
             <HelpCircle className="w-5 h-5" />
@@ -101,14 +101,15 @@ function App() {
             href="https://github.com/yourusername/cashlang"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
           >
             <Github className="w-5 h-5" />
           </a>
 
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="p-2 hover:bg-white/20 rounded-lg transition-colors"
+            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+            title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
           </button>
@@ -144,7 +145,7 @@ function App() {
           <div className="flex-1 flex overflow-hidden">
             {/* Code Editor */}
             <div className="flex-1">
-              <CodeEditor />
+              <CodeEditor darkMode={darkMode} />
             </div>
 
             {/* Output Panel */}
