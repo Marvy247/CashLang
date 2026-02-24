@@ -271,7 +271,7 @@ export function LandingPage({ onGetStarted }: LandingPageProps) {
       {/* Footer */}
       <footer className="relative z-10 border-t border-gray-200 py-12">
         <div className="max-w-7xl mx-auto px-6 text-center text-gray-600">
-          <p>Built with ❤️ for Bitcoin Cash | BCH-1 Hackcelerator 2026</p>
+          <p>Built for Bitcoin Cash | BCH-1 Hackcelerator 2026</p>
         </div>
       </footer>
     </div>
