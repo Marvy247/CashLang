@@ -21,12 +21,20 @@ CashLang is a revolutionary development framework that brings Solidity-like deve
 - **Real-time Compilation** - Instant feedback as you code
 - **Syntax Highlighting** - Custom CashLang language support
 - **Dark/Light Mode** - Easy on the eyes, day or night
+- **Tabbed Interface** - Output and Security analysis side-by-side
 
 ### 🔧 Powerful Transpiler
 - **High-Level Syntax** - Write contracts like Solidity/TypeScript
 - **CashScript Output** - Generates clean, optimized .cash files
 - **Contract Artifacts** - JSON ABIs ready for deployment
 - **Error Diagnostics** - Helpful error messages with line numbers
+- **CashTokens Syntax Sugar** - `token.category`, `token.nft.commitment` helpers
+
+### 🛡️ Security Analyzer (NEW!)
+- **Real-time Security Scoring** - Get a grade (A-F) for your contract
+- **8 Security Checks** - Signature verification, time locks, token preservation, overflow protection
+- **Actionable Suggestions** - Fix issues with clear recommendations
+- **Visual Issue Display** - Color-coded by severity (Critical/Warning/Info)
 
 ### 🎭 Template Gallery
 5 production-ready templates showcasing CashTokens:
@@ -35,6 +43,12 @@ CashLang is a revolutionary development framework that brings Solidity-like deve
 - **DAO Voting** - Token-weighted governance
 - **DEX Atomic Swap** - Trustless token exchange
 - **Token Vesting** - Linear vesting schedules
+
+### 🔐 Covenant Patterns Library (NEW!)
+- **4 Battle-tested Patterns** - Token preservation, NFT transfer, minting, splitting
+- **One-click Insert** - Add patterns directly to your code
+- **Copy to Clipboard** - Easy sharing and reuse
+- **Comprehensive Docs** - Each pattern fully explained
 
 ### 🧪 Built-in Simulation
 - Test contracts locally before deployment
@@ -81,7 +95,7 @@ contract TokenVault(pubkey owner, int unlockTime) {
 
 ### 2. Click "Compile"
 
-CashLang transpiles your code to CashScript:
+CashLang transpiles your code to CashScript and runs security analysis:
 
 ```cashscript
 contract TokenVault(pubkey owner, int unlockTime) {
@@ -91,6 +105,11 @@ contract TokenVault(pubkey owner, int unlockTime) {
   }
 }
 ```
+
+**Security Score: A (95/100)**
+- ✓ Signature verification present
+- ✓ Time lock properly enforced
+- ✓ All validations in place
 
 ### 3. Deploy
 
@@ -163,6 +182,9 @@ cashlang/
 - ✅ Core transpiler (CashLang → CashScript)
 - ✅ Web IDE with Monaco Editor
 - ✅ 5 CashTokens templates
+- ✅ Contract security analyzer
+- ✅ Covenant patterns library
+- ✅ CashTokens syntax sugar
 - ✅ Basic error diagnostics
 - ✅ Contract artifact generation
 
