@@ -10,10 +10,16 @@ export function CompileButton() {
   const handleCompile = async () => {
     setIsCompiling(true);
     
-    // Simulate async compilation
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
     const source = files[currentFile];
+    
+    // Realistic compilation delay based on code size
+    const codeSize = source.length;
+    const baseDelay = 2000; // 2 seconds base
+    const sizeDelay = Math.min(3000, Math.floor(codeSize / 100) * 100); // Up to 3 seconds based on size
+    const totalDelay = baseDelay + sizeDelay;
+    
+    await new Promise(resolve => setTimeout(resolve, totalDelay));
+    
     const result = transpile(source);
     
     // Run simulation if compilation successful
