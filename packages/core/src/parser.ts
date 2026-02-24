@@ -185,8 +185,11 @@ export function parse(source: string): { ast: ContractNode | null; errors: Compi
       } as RequireStatement;
     }
 
-    // Skip other statements for MVP
-    advance();
+    // Skip unknown statements
+    while (peek() && peek()!.type !== 'SEMICOLON' && peek()!.type !== 'RBRACE') {
+      advance();
+    }
+    if (peek()?.type === 'SEMICOLON') advance();
     return null;
   }
 
@@ -216,6 +219,14 @@ export function parse(source: string): { ast: ContractNode | null; errors: Compi
   function parsePrimary(): ExpressionNode | null {
     const token = peek();
     if (!token) return null;
+
+    // Handle parentheses
+    if (token.type === 'LPAREN') {
+      advance(); // consume (
+      const expr = parseExpression();
+      expect('RPAREN');
+      return expr;
+    }
 
     if (token.type === 'IDENTIFIER') {
       const idToken = advance();
