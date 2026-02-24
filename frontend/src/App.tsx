@@ -15,7 +15,7 @@ function App() {
   const [showTemplates, setShowTemplates] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
   const [showLanding, setShowLanding] = useState(true);
-  const { currentFile } = useEditorStore();
+  const { currentFile, selectedTemplate } = useEditorStore();
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -127,7 +127,12 @@ function App() {
           <div className="h-14 bg-gray-100 border-b border-gray-200 flex items-center justify-between px-6">
             <div className="flex items-center gap-4">
               <span className="text-sm font-medium text-gray-700">{currentFile}</span>
-              <span className="text-xs text-gray-500">CashLang v0.1.0</span>
+              {selectedTemplate && (
+                <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-md">
+                  {selectedTemplate.name}
+                </span>
+              )}
+              <span className="text-xs text-gray-500">CashLang v0.1.1</span>
             </div>
             <div data-compile>
               <CompileButton />
@@ -163,6 +168,7 @@ function App() {
             <div className="h-14 bg-gradient-to-r from-blue-600 to-purple-600 text-white flex items-center justify-between px-6">
               <h2 className="font-bold text-lg">Template Gallery</h2>
               <button
+                data-close-templates
                 onClick={() => setShowTemplates(false)}
                 className="text-2xl hover:bg-white/20 w-8 h-8 rounded-lg transition-colors"
               >

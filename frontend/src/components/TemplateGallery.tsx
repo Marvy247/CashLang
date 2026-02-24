@@ -24,6 +24,12 @@ export function TemplateGallery() {
     loadTemplate(template);
     setSelectedTemplate(template);
     toast.success(`📝 Loaded: ${template.name}`);
+    
+    // Close modal after selection
+    setTimeout(() => {
+      const closeButton = document.querySelector('[data-close-templates]') as HTMLButtonElement;
+      closeButton?.click();
+    }, 100);
   };
 
   return (
