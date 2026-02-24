@@ -57,33 +57,33 @@ function App() {
   }
 
   return (
-    <div className={`h-screen flex flex-col ${darkMode ? 'dark' : ''}`}>
+    <div className={`h-screen flex flex-col ${darkMode ? 'dark bg-gray-900' : 'bg-white'}`}>
       <Analytics />
       <Toaster position="top-right" />
 
       {/* Header */}
-      <header className="h-16 bg-gray-900 text-white flex items-center justify-between px-6 shadow-lg">
+      <header className={`h-16 ${darkMode ? 'bg-gray-800' : 'bg-gray-100 border-b border-gray-200'} flex items-center justify-between px-6 shadow-sm`}>
         <div className="flex items-center gap-3">
           <button
             onClick={() => setShowLanding(true)}
-            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+            className={`p-2 ${darkMode ? 'hover:bg-gray-700 text-white' : 'hover:bg-gray-200 text-gray-900'} rounded-lg transition-colors`}
             title="Back to home"
           >
             <Home className="w-5 h-5" />
           </button>
-          <div className="p-2 bg-gray-800 rounded-lg">
-            <Code2 className="w-6 h-6" />
+          <div className={`p-2 ${darkMode ? 'bg-gray-700' : 'bg-gray-200'} rounded-lg`}>
+            <Code2 className={`w-6 h-6 ${darkMode ? 'text-white' : 'text-gray-900'}`} />
           </div>
           <div>
-            <h1 className="text-xl font-bold tracking-tight">CashLang</h1>
-            <p className="text-xs text-gray-400">Bitcoin Cash Smart Contract IDE</p>
+            <h1 className={`text-xl font-bold tracking-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>CashLang</h1>
+            <p className={`text-xs ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>Bitcoin Cash Smart Contract IDE</p>
           </div>
         </div>
 
         <div className="flex items-center gap-4">
           <button
             onClick={() => setShowTemplates(!showTemplates)}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+            className={`flex items-center gap-2 px-4 py-2 ${darkMode ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-900'} rounded-lg transition-colors`}
           >
             <Sparkles className="w-4 h-4" />
             Templates
@@ -91,7 +91,7 @@ function App() {
           
           <button
             onClick={() => setShowHelp(true)}
-            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+            className={`p-2 ${darkMode ? 'hover:bg-gray-700 text-white' : 'hover:bg-gray-200 text-gray-900'} rounded-lg transition-colors`}
             title="Keyboard shortcuts"
           >
             <HelpCircle className="w-5 h-5" />
@@ -101,14 +101,14 @@ function App() {
             href="https://github.com/yourusername/cashlang"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+            className={`p-2 ${darkMode ? 'hover:bg-gray-700 text-white' : 'hover:bg-gray-200 text-gray-900'} rounded-lg transition-colors`}
           >
             <Github className="w-5 h-5" />
           </a>
 
           <button
             onClick={() => setDarkMode(!darkMode)}
-            className="p-2 hover:bg-gray-800 rounded-lg transition-colors"
+            className={`p-2 ${darkMode ? 'hover:bg-gray-700 text-white' : 'hover:bg-gray-200 text-gray-900'} rounded-lg transition-colors`}
             title={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
           >
             {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
@@ -126,15 +126,15 @@ function App() {
         {/* Editor Area */}
         <div className="flex-1 flex flex-col">
           {/* Toolbar */}
-          <div className="h-14 bg-gray-100 border-b border-gray-200 flex items-center justify-between px-6">
+          <div className={`h-14 ${darkMode ? 'bg-gray-800 border-gray-700' : 'bg-gray-100'} border-b border-gray-200 flex items-center justify-between px-6`}>
             <div className="flex items-center gap-4">
-              <span className="text-sm font-medium text-gray-700">{currentFile}</span>
+              <span className={`text-sm font-medium ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>{currentFile}</span>
               {selectedTemplate && (
-                <span className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded-md">
+                <span className={`text-xs px-2 py-1 ${darkMode ? 'bg-blue-900 text-blue-200' : 'bg-blue-100 text-blue-700'} rounded-md`}>
                   {selectedTemplate.name}
                 </span>
               )}
-              <span className="text-xs text-gray-500">CashLang v0.1.1</span>
+              <span className={`text-xs ${darkMode ? 'text-gray-500' : 'text-gray-500'}`}>CashLang v0.1.1</span>
             </div>
             <div data-compile>
               <CompileButton />
@@ -149,10 +149,10 @@ function App() {
             </div>
 
             {/* Output Panel */}
-            <div className="w-96 border-l border-gray-200 bg-white overflow-hidden">
+            <div className={`w-96 border-l ${darkMode ? 'border-gray-700 bg-gray-800' : 'border-gray-200 bg-white'} overflow-hidden`}>
               <div className="h-full flex flex-col">
-                <div className="h-12 bg-gray-50 border-b border-gray-200 flex items-center px-4">
-                  <h3 className="font-semibold text-gray-700">Output</h3>
+                <div className={`h-12 ${darkMode ? 'bg-gray-900 border-gray-700' : 'bg-gray-50'} border-b border-gray-200 flex items-center px-4`}>
+                  <h3 className={`font-semibold ${darkMode ? 'text-gray-200' : 'text-gray-700'}`}>Output</h3>
                 </div>
                 <div className="flex-1 overflow-auto">
                   <OutputPanel />
